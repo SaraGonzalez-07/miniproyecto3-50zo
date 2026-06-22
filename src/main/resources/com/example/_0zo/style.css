@@ -1,0 +1,109 @@
+/* Paleta de Colores Abstracta */
+.root {
+    -color-bg-dark: #0d0d0d;       /* Fondo general negro */
+    -color-bg-card: #161616;       /* Gris oscuro para estructurar contenedores */
+    -color-accent-red: #8b0000;    /* Rojo carmesí principal */
+    -color-accent-red-bright: #b30000;
+    -color-accent-gold: #d4af37;   /* Dorado limpio para realces puntuales */
+    -color-text-main: #ffffff;
+    -color-text-muted: #666666;
+}
+
+/* Contenedor Base */
+.main-container {
+    -fx-background-color: var(-color-bg-dark);
+    -fx-padding: 24;
+    -fx-pref-width: 800;
+    -fx-pref-height: 600;
+}
+
+/* Panel Superior de Datos */
+.header-panel {
+    -fx-background-color: var(-color-bg-card);
+    -fx-padding: 16;
+    -fx-border-color: var(-color-accent-red);
+    -fx-border-width: 0 0 2 0; /* Línea de contención roja inferior */
+}
+
+.game-title {
+    -fx-font-family: "Arial Black", sans-serif;
+    -fx-font-size: 28;
+    -fx-text-fill: var(-color-accent-red-bright);
+}
+
+.score-container {
+    -fx-padding: 8 0 0 0;
+}
+
+.score-label {
+    -fx-font-size: 10;
+    -fx-font-weight: bold;
+    -fx-text-fill: var(-color-text-muted);
+}
+
+.score-value {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: var(-color-text-main);
+}
+
+.status-value {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: var(-color-accent-gold);
+}
+
+/* Tablero de Juego Central */
+.game-board {
+    -fx-background-color: #121212;
+    -fx-border-color: #222222;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 40;
+}
+
+.board-placeholder {
+    -fx-font-size: 14;
+    -fx-text-fill: #444444;
+}
+
+/* Panel de Control Inferior */
+.action-panel {
+    -fx-padding: 16 0 0 0;
+    -fx-spacing: 16;
+}
+
+/* Estilización Estricta de Botones */
+.btn-action {
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-padding: 10 24;
+    -fx-background-radius: 2;
+    -fx-cursor: hand;
+}
+
+/* Botón de Acción Principal (Apostar) */
+.btn-primary {
+    -fx-background-color: var(-color-accent-red);
+    -fx-text-fill: var(-color-text-main);
+    -fx-border-color: var(-color-accent-gold);
+    -fx-border-width: 1;
+}
+
+.btn-primary:hover {
+    -fx-background-color: var(-color-accent-red-bright);
+}
+
+/* Botón de Acción Secundario (Retirarse) */
+.btn-secondary {
+    -fx-background-color: #222222;
+    -fx-text-fill: var(-color-text-muted);
+    -fx-border-color: #333333;
+    -fx-border-width: 1;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #2a2a2a;
+    -fx-text-fill: var(-color-text-main);
+}
