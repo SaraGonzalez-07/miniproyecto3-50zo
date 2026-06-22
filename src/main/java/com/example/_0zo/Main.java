@@ -16,6 +16,6 @@ public class _0zo {
          * (like our _0zoView) avoids issues when the program is compiled into a JAR.
          */
         Application.launch(_0zoView.class, args);
-        "hola"
+        "hola, lo ves"
     }
 }
