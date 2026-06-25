@@ -7,9 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import jdk.internal.org.jline.terminal.MouseEvent.Button?>
-<?import java.awt.Label?>
-<BorderPane fx:controller="com.game.ozo.controller._0zoController"
+<BorderPane fx:controller="com.example._0zo.controller._0zoController"
             styleClass="main-container"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1">
@@ -48,8 +46,18 @@
     <bottom>
         <HBox alignment="CENTER" styleClass="action-panel">
             <children>
-                <Button mnemonicParsing="false" onAction="#handleFoldAction" styleClass="btn-action, btn-secondary" text="Retirarse" />
-                <Button mnemonicParsing="false" onAction="#handleBetAction" styleClass="btn-action, btn-primary" text="¡APRESTAR!" />
+                <Button mnemonicParsing="false" onAction="#handleFoldAction" text="Retirarse">
+                    <styleClass>
+                        <String fx:value="btn-action" />
+                        <String fx:value="btn-secondary" />
+                    </styleClass>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#handleBetAction" text="¡APRESTAR!">
+                    <styleClass>
+                        <String fx:value="btn-action" />
+                        <String fx:value="btn-primary" />
+                    </styleClass>
+                </Button>
             </children>
         </HBox>
     </bottom>
