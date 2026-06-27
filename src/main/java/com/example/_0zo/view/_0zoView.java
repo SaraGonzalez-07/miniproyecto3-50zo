@@ -2,24 +2,29 @@ package com.example._0zo.view;
 
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
+import javafx.scene.Scene;
+
+import javafx.scene.layout.BorderPane;
+
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
 public class _0zoView {
+
 
     private Scene scene;
 
     private BorderPane root;
 
 
-
     public _0zoView(){
 
-        try {
+
+        try{
+
 
             FXMLLoader loader =
                     new FXMLLoader(
@@ -29,14 +34,17 @@ public class _0zoView {
                                     )
                     );
 
+            root =
+                    loader.load();
 
-            root = loader.load();
 
-            scene = new Scene(
-                    root,
-                    1000,
-                    650
-            );
+            scene =
+                    new Scene(
+                            root,
+                            1000,
+                            650
+                    );
+
 
             scene.getStylesheets()
                     .add(
@@ -47,10 +55,11 @@ public class _0zoView {
                                     .toExternalForm()
                     );
 
-        } catch(IOException e){
+
+        }catch(IOException e){
 
             System.out.println(
-                    "Error loading 50zo view"
+                    "Error loading 50zo interface"
             );
 
             e.printStackTrace();
@@ -59,29 +68,39 @@ public class _0zoView {
 
     }
 
+
     public Scene getScene(){
 
         return scene;
 
     }
 
-    public void show(Stage stage) {
+
+
+    public void show(Stage stage){
+
 
         stage.setTitle(
-                "50zo - Card Game"
+                "50zo - Cincuentazo"
         );
 
         stage.setScene(scene);
 
+
         stage.setWidth(1100);
+
 
         stage.setHeight(650);
 
-        stage.setMinWidth(950);
+
+        stage.setMinWidth(900);
+
 
         stage.setMinHeight(550);
 
+
         stage.setResizable(true);
+
 
         stage.show();
 

@@ -14,7 +14,7 @@
             styleClass="root">
 
 
-    <!-- TOP BAR -->
+    <!-- TOP MENU -->
 
     <top>
 
@@ -23,349 +23,182 @@
               prefHeight="60"
               styleClass="top-panel">
 
-
             <Label text="50ZO"
                    styleClass="title"/>
-
-
 
             <Label text="Machines:"
                    styleClass="label"/>
 
-
-
             <ComboBox fx:id="machineSelector"
-                      promptText="Select"
+                      promptText="1 - 3"
                       prefWidth="100"/>
-
-
-
 
             <Button fx:id="startButton"
                     text="START GAME"
                     styleClass="gold-button"/>
 
-
-
-
             <Button fx:id="restartButton"
                     text="RESTART"
                     styleClass="gold-button"/>
-
-
-
 
             <Button fx:id="exitButton"
                     text="EXIT"
                     styleClass="danger-button"/>
 
-
         </HBox>
-
 
     </top>
 
-
-
-
-
-
-
-
-    <!-- CENTER TABLE -->
+    <!-- CENTER GAME TABLE -->
 
     <center>
 
-
         <GridPane alignment="CENTER"
-                  hgap="15"
-                  vgap="10"
+                  hgap="25"
+                  vgap="20"
                   styleClass="game-table">
 
 
-
-
-
-
-            <!-- TOP MACHINE -->
-
+            <!-- MACHINE TOP -->
 
             <VBox GridPane.rowIndex="0"
                   GridPane.columnIndex="1"
                   alignment="CENTER"
-                  spacing="3"
+                  spacing="5"
                   styleClass="player-box">
-
 
                 <Label fx:id="topPlayerName"
                        text="Machine 3"
                        styleClass="player-name"/>
 
-
-
                 <Circle radius="20"
                         styleClass="avatar"/>
-
-
-
 
                 <Label fx:id="topPlayerCards"
                        text="Cards Hidden"/>
 
 
-
-
-                <Label fx:id="topPlayerScore"
-                       text="Score 0"/>
-
-
             </VBox>
 
-
-
-
-
-
-
-
-
-
-
-            <!-- LEFT MACHINE -->
-
+            <!-- MACHINE LEFT -->
 
             <VBox GridPane.rowIndex="1"
                   GridPane.columnIndex="0"
                   alignment="CENTER"
-                  spacing="3"
+                  spacing="5"
                   styleClass="player-box">
-
 
                 <Label fx:id="leftPlayerName"
                        text="Machine 1"
                        styleClass="player-name"/>
 
-
-
                 <Circle radius="20"
                         styleClass="avatar"/>
-
-
 
                 <Label fx:id="leftPlayerCards"
                        text="Cards Hidden"/>
 
-
-
-
-                <Label fx:id="leftPlayerScore"
-                       text="Score 0"/>
-
-
             </VBox>
 
-
-
-
-
-
-
-
-
-
-
-
-            <!-- GAME CENTER -->
-
+            <!-- CENTER AREA -->
 
             <VBox GridPane.rowIndex="1"
                   GridPane.columnIndex="1"
                   alignment="CENTER"
-                  spacing="10"
+                  spacing="15"
                   styleClass="center-zone">
-
-
 
                 <Label text="TABLE SUM"
                        styleClass="counter-title"/>
-
-
-
 
                 <Label fx:id="lblTableSum"
                        text="0"
                        styleClass="counter"/>
 
-
-
-
-
-
                 <HBox spacing="30"
                       alignment="CENTER">
 
-
-
-
-
-                    <!-- DECK -->
-
+                    <!-- DRAW PILE -->
 
                     <VBox alignment="CENTER">
 
-
-                        <Label text="DRAW"/>
-
-
+                        <Label text="DECK"/>
 
                         <StackPane fx:id="drawPile"
                                    styleClass="card back-card">
 
-
-                            <Label text="50"
+                            <Label text="?"
                                    styleClass="card-number"/>
-
 
                         </StackPane>
 
-
                     </VBox>
-
-
-
-
-
-
 
                     <!-- CURRENT CARD -->
 
-
                     <VBox alignment="CENTER">
 
-
-                        <Label text="CARD"/>
-
-
+                        <Label text="TABLE CARD"/>
 
                         <StackPane fx:id="discardPile"
                                    styleClass="card">
-
 
                             <Label fx:id="currentCard"
                                    text="?"
                                    styleClass="card-number"/>
 
-
                         </StackPane>
-
 
                     </VBox>
 
-
-
                 </HBox>
-
-
-
-
-
-
 
                 <Label text="PLAYER SCORE"
                        styleClass="counter-title"/>
-
-
-
 
                 <Label fx:id="scoreValue"
                        text="0"
                        styleClass="score"/>
 
-
-
-
             </VBox>
 
-
-
-
-
-
-
-
-
-
-
-
-
-            <!-- RIGHT MACHINE -->
-
+            <!-- MACHINE RIGHT -->
 
             <VBox GridPane.rowIndex="1"
                   GridPane.columnIndex="2"
                   alignment="CENTER"
-                  spacing="3"
+                  spacing="5"
                   styleClass="player-box">
-
 
                 <Label fx:id="rightPlayerName"
                        text="Machine 2"
                        styleClass="player-name"/>
 
-
-
                 <Circle radius="20"
                         styleClass="avatar"/>
-
-
 
                 <Label fx:id="rightPlayerCards"
                        text="Cards Hidden"/>
 
-
-
-                <Label fx:id="rightPlayerScore"
-                       text="Score 0"/>
-
-
-
             </VBox>
-
-
-
 
 
         </GridPane>
 
-
     </center>
-
-
-
-
-
-
-
-
 
     <!-- HUMAN PLAYER -->
 
     <bottom>
 
-
         <VBox alignment="CENTER"
-              spacing="5"
-              prefHeight="120"
+              spacing="10"
+              prefHeight="130"
               styleClass="bottom-player">
-
-
 
             <Label fx:id="mainPlayerName"
                    text="Human Player"
                    styleClass="player-name"/>
-
-
-
 
             <HBox fx:id="playerHand"
                   spacing="15"

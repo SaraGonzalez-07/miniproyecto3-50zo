@@ -3,34 +3,24 @@ package com.example._0zo.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+
 
 
 public class _0zoModel {
 
+    private ArrayList<String> deck;
 
-    private ArrayList<Integer> deck;
+    private ArrayList<String> tableCards;
 
+    private ArrayList<String> humanHand;
 
-    private ArrayList<Integer> humanHand;
-
-
-    private ArrayList<ArrayList<Integer>> machineHands;
-
+    private ArrayList<ArrayList<String>> machineHands;
 
     private int tableSum;
 
-
-    private int currentCard;
-
-
-    private int playerScore;
-
-
     private int machinePlayers;
 
-
-    private boolean gameStarted;
+    private boolean humanAlive;
 
 
     public _0zoModel(){
@@ -38,70 +28,75 @@ public class _0zoModel {
 
         deck = new ArrayList<>();
 
+        tableCards = new ArrayList<>();
 
         humanHand = new ArrayList<>();
 
-
         machineHands = new ArrayList<>();
-
-
-        createDeck();
-
 
     }
 
 
-    private void createDeck(){
+    // CREAR MAZO POKER
 
+    private void createDeck(){
 
         deck.clear();
 
+        String[] cards =
+                {
+                        "A",
+                        "2",
+                        "3",
+                        "4",
+                        "5",
+                        "6",
+                        "7",
+                        "8",
+                        "9",
+                        "10",
+                        "J",
+                        "Q",
+                        "K"
+                };
 
-        for(int number = 1; number <= 10; number++){
 
+        for(String card : cards){
 
-            for(int copy = 0; copy < 4; copy++){
+            for(int i = 0; i < 4; i++) {
 
-
-                deck.add(number);
-
+                deck.add(card);
 
             }
 
         }
 
-
         Collections.shuffle(deck);
 
     }
 
+    // INICIAR PARTIDA
 
     public void startGame(int machines){
 
-
-        gameStarted = true;
-
-
         machinePlayers = machines;
 
-
-        tableSum = 0;
-
-
-        playerScore = 0;
-
-
-        humanHand.clear();
-
-
-        machineHands.clear();
-
+        humanAlive = true;
 
         createDeck();
 
+        tableCards.clear();
 
-        // Human initial hand
-        for(int i = 0; i < 5; i++){
+        humanHand.clear();
+
+        machineHands.clear();
+
+        tableSum = 0;
+
+        // repartir humano
+
+
+        for(int i = 0; i < 4; i++){
 
 
             humanHand.add(
@@ -110,14 +105,15 @@ public class _0zoModel {
 
         }
 
-        // Machines initial hand
+        // repartir maquinas
 
-        for(int i = 0; i < machines; i++){
 
-            ArrayList<Integer> hand =
+        for(int i = 0; i < machines; i++) {
+
+            ArrayList<String> hand =
                     new ArrayList<>();
 
-            for(int j = 0; j < 5; j++){
+            for (int j = 0; j < 4; j++) {
 
                 hand.add(
                         drawCard()
@@ -128,22 +124,28 @@ public class _0zoModel {
             machineHands.add(hand);
 
         }
+        // carta inicial mesa
 
-        // First card on table
-
-        currentCard =
+        String firstCard =
                 drawCard();
 
+        tableCards.add(firstCard);
+
         tableSum =
-                currentCard;
+                calculateCardValue(
+                        firstCard,
+                        tableSum
+                );
 
     }
 
-    public int drawCard(){
+    // SACAR CARTA DEL MAZO
+
+    public String drawCard(){
 
         if(deck.isEmpty()){
 
-            createDeck();
+            recycleDeck();
 
         }
 
@@ -151,65 +153,134 @@ public class _0zoModel {
 
     }
 
-    public void addCardToHumanHand(){
+    // CALCULAR VALOR DE CARTA
 
-        int card =
-                drawCard();
 
-        humanHand.add(card);
+    public int calculateCardValue(
+            String card,
+            int currentSum
+    ){
 
-        tableSum += card;
+        switch(card){
 
-    }
+            case "A":
 
-    public void playCard(int index){
+                if(currentSum + 10 <= 50){
 
-        if(index >=0 &&
-                index < humanHand.size()){
+                    return 10;
 
-            int card =
-                    humanHand.remove(index);
+                }
 
-            currentCard =
-                    card;
+                return 1;
 
-            tableSum += card;
+            case "9":
+
+
+                return 0;
+
+            case "J":
+
+            case "Q":
+
+            case "K":
+
+                return -10;
+
+            default:
+
+                return Integer.parseInt(card);
 
         }
 
     }
 
-    public void resetGame(){
+    // JUGAR CARTA HUMANA
 
-        deck.clear();
+    public boolean playHumanCard(int position){
 
-        humanHand.clear();
+        if(position < 0 ||
+                position >= humanHand.size()){
 
-        machineHands.clear();
+            return false;
 
-        tableSum = 0;
+        }
 
-        currentCard = 0;
+        String card =
+                humanHand.get(position);
 
-        playerScore = 0;
+        int value =
+                calculateCardValue(
+                        card,
+                        tableSum
+                );
 
-        machinePlayers = 0;
+        int newSum =
+                tableSum + value;
 
-        gameStarted = false;
+        if(newSum > 50){
 
-        createDeck();
+            return false;
+
+        }
+
+        humanHand.remove(position);
+
+        tableCards.add(card);
+
+        tableSum = newSum;
+
+        // mantener 4 cartas
+
+        humanHand.add(
+                drawCard()
+        );
+
+        return true;
 
     }
 
+    // RECICLAR MAZO
 
-    public ArrayList<Integer> getHumanHand(){
+    private void recycleDeck(){
+
+        if(tableCards.size() <= 1){
+
+            return;
+
+        }
+
+        String lastCard =
+                tableCards.get(
+                        tableCards.size()-1);
+
+        tableCards.remove(
+                tableCards.size()-1);
+
+        deck.addAll(tableCards);
+
+        tableCards.clear();
+
+        tableCards.add(lastCard);
+
+        Collections.shuffle(deck);
+
+    }
+
+    // GETTERS
+
+    public ArrayList<String> getHumanHand(){
 
         return humanHand;
 
     }
 
+    public ArrayList<String> getTableCards(){
 
-    public ArrayList<ArrayList<Integer>> getMachineHands(){
+        return tableCards;
+
+    }
+
+    public ArrayList<ArrayList<String>> getMachineHands(){
 
         return machineHands;
 
@@ -221,38 +292,15 @@ public class _0zoModel {
 
     }
 
-
-    public int getCurrentCard(){
-
-        return currentCard;
-
-    }
-
-
-    public int getPlayerScore(){
-
-        return playerScore;
-
-    }
-
     public int getMachinePlayers(){
 
         return machinePlayers;
 
     }
 
+    public boolean isHumanAlive(){
 
-    public boolean isGameStarted(){
-
-        return gameStarted;
-
-    }
-
-
-    public int getDeckSize(){
-
-        return deck.size();
-
+        return humanAlive;
 
     }
 

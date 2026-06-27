@@ -1,7 +1,6 @@
 /* =========================
-   MAIN
+   ROOT
 ========================= */
-
 
 .root {
 
@@ -12,590 +11,305 @@
 }
 
 
-
-
-
-
-
 /* =========================
    TOP BAR
 ========================= */
 
-
 .top-panel {
 
+    -fx-background-color:#111111;
 
-    -fx-background-color: #101010;
+    -fx-padding:10;
 
+    -fx-border-color:#d4af37;
 
-    -fx-padding: 10;
-
-
-    -fx-border-color: #d4af37;
-
-
-    -fx-border-width: 0 0 2 0;
-
+    -fx-border-width:0 0 2 0;
 
 }
-
-
-
 
 
 .title {
 
+    -fx-text-fill:#ffd700;
 
-    -fx-text-fill: #ffd700;
+    -fx-font-size:32px;
 
-
-    -fx-font-size: 32px;
-
-
-    -fx-font-weight: bold;
-
+    -fx-font-weight:bold;
 
 }
-
-
-
-
 
 
 .label {
 
+    -fx-text-fill:white;
 
-    -fx-text-fill: white;
-
-
-    -fx-font-size: 15px;
-
+    -fx-font-size:15px;
 
 }
-
-
-
-
-
-
-
 
 
 /* =========================
    BUTTONS
 ========================= */
 
-
-
 .gold-button {
-
 
     -fx-background-color:
 
-
             linear-gradient(#ffd700,#b8860b);
 
+    -fx-text-fill:black;
 
+    -fx-font-weight:bold;
 
-    -fx-text-fill: black;
+    -fx-background-radius:12;
 
-
-
-    -fx-font-weight: bold;
-
-
-
-    -fx-background-radius: 12;
-
-
-
-    -fx-padding: 8 18;
+    -fx-padding:8 15;
 
 
 }
-
-
-
-
-
 
 .gold-button:hover {
 
+    -fx-background-color:#fff000;
 
-    -fx-background-color: #fff000;
+    -fx-scale-x:1.1;
 
-
-
-    -fx-scale-x:1.08;
-
-
-    -fx-scale-y:1.08;
+    -fx-scale-y:1.1;
 
 
 }
-
-
-
-
 
 
 .danger-button {
 
-
     -fx-background-color:
-
 
             linear-gradient(#ff1744,#700000);
 
-
-
     -fx-text-fill:white;
 
-
-
     -fx-font-weight:bold;
-
-
 
     -fx-background-radius:12;
 
-
-
-    -fx-padding:8 18;
-
-
 }
-
-
-
-
 
 .danger-button:hover {
 
-
     -fx-effect:
-
 
             dropshadow(gaussian,#ff1744,20,0.8,0,0);
 
-
 }
 
-
-
-
-
-
-
-
 /* =========================
-   TABLE
+   GAME TABLE
 ========================= */
-
-
 
 .game-table {
 
-
     -fx-background-color:
-
 
             radial-gradient(center 50% 50%,
 
-            radius 70%,
+            radius 80%,
 
-            #4a0000,
+            #500000,
 
             #000000);
 
-
-
     -fx-padding:20;
-
 
 }
 
-
-
-
-
-
-
-
 /* =========================
-   CENTER
+   CENTER PANEL
 ========================= */
-
 
 .center-zone {
 
-
-    -fx-background-color:#111111;
-
-
+    -fx-background-color:#101010;
 
     -fx-background-radius:20;
 
-
-
-    -fx-border-color:#d4af37;
-
-
-
-    -fx-border-width:2;
-
-
+    -fx-border-color:#ffd700;
 
     -fx-border-radius:20;
 
+    -fx-border-width:2;
 
-
-    -fx-padding:15;
-
+    -fx-padding:20;
 
 }
-
-
-
-
-
-
-
 
 .counter-title {
 
-
     -fx-text-fill:#ffd700;
 
-
-
-    -fx-font-size:15px;
-
-
+    -fx-font-size:16px;
 
     -fx-font-weight:bold;
 
-
 }
-
-
-
-
 
 .counter {
 
-
     -fx-text-fill:#ff1744;
 
-
-
-    -fx-font-size:50px;
-
-
+    -fx-font-size:55px;
 
     -fx-font-weight:bold;
 
-
-
     -fx-effect:
 
-
-            dropshadow(gaussian,#ff0000,20,0.8,0,0);
-
+            dropshadow(gaussian,#ff1744,25,0.8,0,0);
 
 }
-
-
-
-
 
 .score {
 
-
     -fx-text-fill:white;
 
-
-
     -fx-font-size:25px;
-
-
 }
 
 
-
-
-
-
-
-
-
 /* =========================
-   PLAYERS
+   PLAYER BOXES
 ========================= */
 
 
 .player-box {
 
-
-    -fx-background-color:#111;
-
-
+    -fx-background-color:#111111;
 
     -fx-background-radius:15;
 
-
-
     -fx-border-color:#d4af37;
-
-
 
     -fx-border-radius:15;
 
-
-
     -fx-padding:10;
 
-
 }
-
-
-
-
 
 .player-name {
 
+    -fx-text-fill: #ffd700;
 
-    -fx-text-fill:#ffd700;
+    -fx-font-size: 16px;
 
-
-
-    -fx-font-size:16px;
-
-
-
-    -fx-font-weight:bold;
-
+    -fx-font-weight: bold;
 
 }
-
-
-
-
 
 
 .player-box Label {
 
-
     -fx-text-fill:white;
 
-
 }
-
-
-
-
 
 
 .avatar {
 
-
     -fx-fill:#990000;
-
-
 
     -fx-stroke:#ffd700;
 
-
-
     -fx-stroke-width:2;
 
-
 }
-
-
-
-
-
-
-
 
 
 /* =========================
    CARDS
 ========================= */
 
-
 .card {
 
+    -fx-pref-width:70;
 
-    -fx-pref-width:65;
-
-
-
-    -fx-pref-height:90;
-
-
+    -fx-pref-height:95;
 
     -fx-background-color:white;
 
-
-
     -fx-background-radius:12;
-
-
 
     -fx-border-color:#d4af37;
 
-
+    -fx-border-radius:12;
 
     -fx-border-width:2;
 
-
-
-    -fx-border-radius:12;
-
-
-
     -fx-effect:
 
-
-            dropshadow(gaussian,#000000,10,0.5,2,2);
-
+            dropshadow(gaussian,#000000,12,0.5,2,2);
 
 }
-
-
-
-
-
 
 .card:hover {
 
-
     -fx-scale-x:1.15;
-
-
 
     -fx-scale-y:1.15;
 
-
-
     -fx-effect:
 
-
             dropshadow(gaussian,#ffd700,25,0.9,0,0);
-
-
 }
-
-
-
-
-
-
-
-.back-card {
-
-
-    -fx-background-color:
-
-
-            linear-gradient(#990000,#ff1744);
-
-
-}
-
-
-
-
-
-
-
 
 .card-number {
 
+    -fx-text-fill:black;
 
-    -fx-text-fill:#000;
-
-
-
-    -fx-font-size:25px;
-
-
+    -fx-font-size:28px;
 
     -fx-font-weight:bold;
 
-
 }
 
+.back-card {
 
+  -fx-background-color:
 
+            linear-gradient(#990000,#330000);
 
-
-
-
-
+}
 
 /* =========================
    HUMAN HAND
 ========================= */
 
-
 .bottom-player {
 
-
-    -fx-background-color:#101010;
-
-
-
-    -fx-padding:10;
-
-
+    -fx-background-color:#111111;
 
     -fx-border-color:#d4af37;
 
-
-
     -fx-border-width:2 0 0 0;
 
+    -fx-padding:10;
 
 }
 
-
-
-
-
-
-
-
-
 /* =========================
-   COMBO BOX
+   COMBOBOX
 ========================= */
-
 
 .combo-box {
 
-
     -fx-background-color:#222;
 
-
-
     -fx-text-fill:white;
-
 
 }
 
-
-
 .combo-box .list-cell {
-
 
     -fx-background-color:#222;
 
-
-
     -fx-text-fill:white;
-
 
 }
