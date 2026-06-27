@@ -12,18 +12,17 @@ public class Main extends Application {
 
     /**
      * Starts the _0zo application by delegating window initialization to the View layer.
-     * This lifecycle method instantiates the {@link _0zoStage} using the primary stage,
+     * This lifecycle method instantiates the {@link _0zoView} using the primary stage,
      * transferring the responsibility of loading the FXML resource, configuring layout
      * dimensions, and rendering the scene graph.
      *
-     * @param primaryStage the primary {@link Stage} container window for this application,
+     * @param primaryStage the primary {@link View} container window for this application,
      * constructed automatically by the JavaFX runtime engine
      * @throws Exception if an error occurs during the view initialization or FXML loading process
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // Delegamos la construcción de la interfaz a nuestra clase Stage personalizada
-        new _0zoView (primaryStage);
+        new _0zoView(primaryStage);
     }
 
     /**
