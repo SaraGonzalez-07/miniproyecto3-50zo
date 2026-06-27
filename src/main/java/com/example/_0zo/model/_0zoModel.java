@@ -9,92 +9,49 @@ import java.util.List;
 public class _0zoModel {
 
 
-    // ==========================
-    // DATOS DEL JUEGO
-    // ==========================
+    private int tableSum;
+
+    private int playerScore;
+
+    private boolean gameActive;
 
 
-    private int sumaMesa;
+    private List<Integer> playerHand;
 
+    private List<String> players;
 
-    private int puntajeJugador;
-
-
-    private boolean juegoActivo;
-
-
-
-
-    // ==========================
-    // JUGADORES
-    // ==========================
-
-
-    private List<String> jugadores;
-
-
-
-    // Cartas del jugador principal
-
-    private List<Integer> manoJugador;
-
-
-
-
-    // ==========================
-    // CONSTRUCTOR
-    // ==========================
 
 
     public _0zoModel(){
 
 
-        sumaMesa = 0;
+        tableSum = 0;
+
+        playerScore = 0;
+
+        gameActive = true;
 
 
-        puntajeJugador = 0;
+        playerHand = new ArrayList<>();
 
-
-        juegoActivo = true;
-
-
-
-        jugadores = new ArrayList<>();
-
-
-        manoJugador = new ArrayList<>();
-
-
+        players = new ArrayList<>();
 
     }
 
 
 
+    // TABLE
 
 
-
-    // ==========================
-    // SUMA DE LA MESA
-    // ==========================
+    public void addCardToTable(int value){
 
 
-
-    public void agregarCartaMesa(int valor){
-
-
-        sumaMesa += valor;
+        tableSum += value;
 
 
+        if(tableSum > 50){
 
-        // Regla del juego:
-        // no debe pasar de 50
-
-
-        if(sumaMesa > 50){
-
-
-            juegoActivo = false;
-
+            gameActive = false;
 
         }
 
@@ -103,12 +60,9 @@ public class _0zoModel {
 
 
 
+    public int getTableSum(){
 
-
-    public int getSumaMesa(){
-
-
-        return sumaMesa;
+        return tableSum;
 
     }
 
@@ -116,57 +70,21 @@ public class _0zoModel {
 
 
 
-    public void reiniciarMesa(){
+    // SCORE
 
 
-        sumaMesa = 0;
+    public void addPlayerScore(int points){
 
 
-        juegoActivo = true;
-
-
-    }
-
-
-
-
-
-
-
-    // ==========================
-    // PUNTAJE
-    // ==========================
-
-
-
-    public void agregarPuntos(int puntos){
-
-
-        puntajeJugador += puntos;
-
+        playerScore += points;
 
     }
 
 
 
+    public int getPlayerScore(){
 
-    public int getPuntajeJugador(){
-
-
-        return puntajeJugador;
-
-
-    }
-
-
-
-
-
-    public void reiniciarPuntaje(){
-
-
-        puntajeJugador = 0;
-
+        return playerScore;
 
     }
 
@@ -175,45 +93,22 @@ public class _0zoModel {
 
 
 
-    // ==========================
-    // CARTAS DEL JUGADOR
-    // ==========================
+    // HAND
 
 
+    public void addCardToHand(int card){
 
-    public void agregarCartaJugador(int carta){
 
-
-        manoJugador.add(carta);
-
+        playerHand.add(card);
 
     }
 
 
 
 
-    public void removerCartaJugador(int posicion){
+    public List<Integer> getPlayerHand(){
 
-
-        if(posicion >=0 && posicion < manoJugador.size()){
-
-
-            manoJugador.remove(posicion);
-
-
-        }
-
-
-    }
-
-
-
-
-    public List<Integer> getManoJugador(){
-
-
-        return manoJugador;
-
+        return playerHand;
 
     }
 
@@ -222,28 +117,21 @@ public class _0zoModel {
 
 
 
-    // ==========================
-    // JUGADORES
-    // ==========================
+    // PLAYERS
 
 
+    public void addPlayer(String name){
 
-    public void agregarJugador(String nombre){
 
-
-        jugadores.add(nombre);
-
+        players.add(name);
 
     }
 
 
 
+    public List<String> getPlayers(){
 
-    public List<String> getJugadores(){
-
-
-        return jugadores;
-
+        return players;
 
     }
 
@@ -251,32 +139,32 @@ public class _0zoModel {
 
 
 
-    // ==========================
-    // ESTADO DEL JUEGO
-    // ==========================
+
+    // GAME
 
 
+    public boolean isGameActive(){
 
-    public boolean isJuegoActivo(){
-
-
-        return juegoActivo;
-
+        return gameActive;
 
     }
 
 
 
 
-    public void finalizarJuego(){
+    public void resetGame(){
 
 
-        juegoActivo = false;
+        tableSum = 0;
+
+        playerScore = 0;
+
+        playerHand.clear();
+
+        gameActive = true;
 
 
     }
-
-
 
 
 

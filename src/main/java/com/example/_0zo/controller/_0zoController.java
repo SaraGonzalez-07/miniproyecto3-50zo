@@ -1,12 +1,20 @@
 package com.example._0zo.controller;
 
 
+import com.example._0zo.model._0zoModel;
+
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
+
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,135 +24,122 @@ import java.util.ResourceBundle;
 public class _0zoController implements Initializable {
 
 
-    // ==========================
-    // CONTADOR CENTRAL
-    // ==========================
+
+    private _0zoModel gameModel;
+
+
+
+    // TABLE
+
 
     @FXML
-    private Label lblSumaMesa;
+    private Label lblTableSum;
 
 
-    // Puntaje del jugador
     @FXML
     private Label scoreValue;
 
 
 
-    // ==========================
-    // JUGADOR PRINCIPAL
-    // ==========================
+    @FXML
+    private StackPane drawPile;
 
 
     @FXML
-    private HBox manoJugador;
+    private StackPane discardPile;
 
 
     @FXML
-    private Label nombreJugadorPrincipal;
+    private Label currentCard;
 
 
 
 
-    // ==========================
-    // JUGADORES RIVALES
-    // ==========================
 
 
-    @FXML
-    private Label nombreJugadorIzquierda;
+    // PLAYER
 
 
     @FXML
-    private Label cartasIzquierda;
+    private Label mainPlayerName;
 
 
     @FXML
-    private Label puntosIzquierda;
+    private HBox playerHand;
+
+
+
+
+
+
+
+    // OPPONENTS
+
+
+    @FXML
+    private Label leftPlayerName;
+
+
+    @FXML
+    private Label leftPlayerCards;
+
+
+    @FXML
+    private Label leftPlayerScore;
+
 
 
 
     @FXML
-    private Label nombreJugadorDerecha;
+    private Label rightPlayerName;
 
 
     @FXML
-    private Label cartasDerecha;
+    private Label rightPlayerCards;
 
 
     @FXML
-    private Label puntosDerecha;
+    private Label rightPlayerScore;
 
 
 
 
-    // ==========================
-    // CARTAS / MESA
-    // ==========================
 
 
-    @FXML
-    private StackPane mazoRobo;
 
 
-    @FXML
-    private StackPane pilaDescarte;
+    // BUTTONS
 
 
     @FXML
-    private Label cartaActualMesa;
+    private Button exitButton;
 
-
-
-    // Cartas del jugador
-
-    @FXML
-    private StackPane carta1;
 
 
     @FXML
-    private StackPane carta2;
-
-
-    @FXML
-    private StackPane carta3;
-
-
-
-    // ==========================
-    // BOTONES
-    // ==========================
-
-
-    @FXML
-    private Button btnSalir;
-
-
-    @FXML
-    private Button btnReiniciar;
+    private Button restartButton;
 
 
 
 
-    // ==========================
-    // VARIABLES DEL JUEGO
-    // ==========================
-
-
-    private int sumaMesa = 0;
-
-    private int puntosJugador = 0;
 
 
 
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb){
 
 
-        configurarEventos();
+
+        gameModel = new _0zoModel();
+
+
+        setupButtons();
 
 
         updateUI();
+
+
 
     }
 
@@ -152,31 +147,32 @@ public class _0zoController implements Initializable {
 
 
 
-    // ==========================
-    // ACTUALIZAR INTERFAZ
-    // ==========================
+
 
 
     private void updateUI(){
 
 
-        if(lblSumaMesa != null){
 
-            lblSumaMesa.setText(
-                    String.valueOf(sumaMesa)
-            );
-
-        }
-
+        lblTableSum.setText(
+                String.valueOf(
+                        gameModel.getTableSum()
+                )
+        );
 
 
-        if(scoreValue != null){
 
-            scoreValue.setText(
-                    String.valueOf(puntosJugador)
-            );
+        scoreValue.setText(
+                String.valueOf(
+                        gameModel.getPlayerScore()
+                )
+        );
 
-        }
+
+
+        mainPlayerName.setText(
+                "Player 1"
+        );
 
 
     }
@@ -185,46 +181,35 @@ public class _0zoController implements Initializable {
 
 
 
-    // ==========================
-    // EVENTOS
-    // ==========================
-
-
-    private void configurarEventos(){
 
 
 
-        if(btnSalir != null){
+    private void setupButtons(){
 
-            btnSalir.setOnAction(e -> {
 
-                System.exit(0);
 
-            });
+        exitButton.setOnAction(e -> {
 
-        }
+
+            System.exit(0);
+
+
+        });
 
 
 
 
-        if(btnReiniciar != null){
+
+        restartButton.setOnAction(e -> {
 
 
-            btnReiniciar.setOnAction(e -> {
+            gameModel.resetGame();
 
 
-                sumaMesa = 0;
-
-                puntosJugador = 0;
+            updateUI();
 
 
-                updateUI();
-
-
-            });
-
-
-        }
+        });
 
 
 
@@ -235,22 +220,11 @@ public class _0zoController implements Initializable {
 
 
 
-    // ==========================
-    // MÉTODOS DEL JUEGO
-    // ==========================
+
+    public void playCard(int value){
 
 
-    public void agregarCarta(int valor){
-
-
-        sumaMesa += valor;
-
-
-        if(sumaMesa > 50){
-
-            sumaMesa = 0;
-
-        }
+        gameModel.addCardToTable(value);
 
 
         updateUI();
@@ -258,17 +232,6 @@ public class _0zoController implements Initializable {
 
     }
 
-
-
-    public void ganarPuntos(int cantidad){
-
-
-        puntosJugador += cantidad;
-
-
-        updateUI();
-
-    }
 
 
 
