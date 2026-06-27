@@ -1,87 +1,283 @@
 package com.example._0zo.model;
 
-/**
- * Modelo de la aplicación _0zo.
- * Se encarga exclusivamente de gestionar los datos, las reglas del juego
- * y la lógica de negocio, manteniéndose independiente de la interfaz gráfica.
- */
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+
 public class _0zoModel {
-    private int currentScore;
-    private int currentBet;
-    private String gameState;
-    private boolean isPlayerTurn;
 
-    /**
-     * Constructor del modelo. Inicializa el estado base de una nueva partida.
-     */
-    public _0zoModel() {
-        resetGame();
+
+    // ==========================
+    // DATOS DEL JUEGO
+    // ==========================
+
+
+    private int sumaMesa;
+
+
+    private int puntajeJugador;
+
+
+    private boolean juegoActivo;
+
+
+
+
+    // ==========================
+    // JUGADORES
+    // ==========================
+
+
+    private List<String> jugadores;
+
+
+
+    // Cartas del jugador principal
+
+    private List<Integer> manoJugador;
+
+
+
+
+    // ==========================
+    // CONSTRUCTOR
+    // ==========================
+
+
+    public _0zoModel(){
+
+
+        sumaMesa = 0;
+
+
+        puntajeJugador = 0;
+
+
+        juegoActivo = true;
+
+
+
+        jugadores = new ArrayList<>();
+
+
+        manoJugador = new ArrayList<>();
+
+
+
     }
 
-    /**
-     * Restablece los valores del juego a su estado inicial predeterminado.
-     */
-    public void resetGame() {
-        this.currentScore = 0;
-        this.currentBet = 100; // Apuesta inicial base
-        this.gameState = "Tu Turno";
-        this.isPlayerTurn = true;
-    }
 
-    /**
-     * Incrementa la apuesta actual del jugador si el monto es válido.
-     * * @param amount Cantidad de puntos/fichas a añadir a la apuesta.
-     */
-    public void placeBet(int amount) {
-        if (amount > 0) {
-            this.currentBet += amount;
-            this.gameState = "¡Apuesta aumentada! Riesgo alto.";
-        } else {
-            this.gameState = "Monto de apuesta inválido.";
+
+
+
+
+    // ==========================
+    // SUMA DE LA MESA
+    // ==========================
+
+
+
+    public void agregarCartaMesa(int valor){
+
+
+        sumaMesa += valor;
+
+
+
+        // Regla del juego:
+        // no debe pasar de 50
+
+
+        if(sumaMesa > 50){
+
+
+            juegoActivo = false;
+
+
         }
+
+
     }
 
-    /**
-     * Cambia el estado del juego para reflejar que el jugador se ha retirado.
-     */
-    public void foldHand() {
-        this.isPlayerTurn = false;
-        this.gameState = "Te has retirado de esta ronda.";
+
+
+
+
+    public int getSumaMesa(){
+
+
+        return sumaMesa;
+
     }
 
-    // ==========================================
-    //            GETTERS AND SETTERS
-    // ==========================================
 
-    public int getCurrentScore() {
-        return currentScore;
+
+
+
+    public void reiniciarMesa(){
+
+
+        sumaMesa = 0;
+
+
+        juegoActivo = true;
+
+
     }
 
-    public void setCurrentScore(int currentScore) {
-        this.currentScore = currentScore;
+
+
+
+
+
+
+    // ==========================
+    // PUNTAJE
+    // ==========================
+
+
+
+    public void agregarPuntos(int puntos){
+
+
+        puntajeJugador += puntos;
+
+
     }
 
-    public int getCurrentBet() {
-        return currentBet;
+
+
+
+    public int getPuntajeJugador(){
+
+
+        return puntajeJugador;
+
+
     }
 
-    public void setCurrentBet(int currentBet) {
-        this.currentBet = currentBet;
+
+
+
+
+    public void reiniciarPuntaje(){
+
+
+        puntajeJugador = 0;
+
+
     }
 
-    public String getGameState() {
-        return gameState;
+
+
+
+
+
+    // ==========================
+    // CARTAS DEL JUGADOR
+    // ==========================
+
+
+
+    public void agregarCartaJugador(int carta){
+
+
+        manoJugador.add(carta);
+
+
     }
 
-    public void setGameState(String gameState) {
-        this.gameState = gameState;
+
+
+
+    public void removerCartaJugador(int posicion){
+
+
+        if(posicion >=0 && posicion < manoJugador.size()){
+
+
+            manoJugador.remove(posicion);
+
+
+        }
+
+
     }
 
-    public boolean isPlayerTurn() {
-        return isPlayerTurn;
+
+
+
+    public List<Integer> getManoJugador(){
+
+
+        return manoJugador;
+
+
     }
 
-    public void setPlayerTurn(boolean playerTurn) {
-        this.isPlayerTurn = playerTurn;
+
+
+
+
+
+    // ==========================
+    // JUGADORES
+    // ==========================
+
+
+
+    public void agregarJugador(String nombre){
+
+
+        jugadores.add(nombre);
+
+
     }
+
+
+
+
+    public List<String> getJugadores(){
+
+
+        return jugadores;
+
+
+    }
+
+
+
+
+
+    // ==========================
+    // ESTADO DEL JUEGO
+    // ==========================
+
+
+
+    public boolean isJuegoActivo(){
+
+
+        return juegoActivo;
+
+
+    }
+
+
+
+
+    public void finalizarJuego(){
+
+
+        juegoActivo = false;
+
+
+    }
+
+
+
+
+
 }

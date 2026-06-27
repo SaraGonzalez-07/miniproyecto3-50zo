@@ -1,74 +1,276 @@
 package com.example._0zo.controller;
 
-import com.example._0zo.model._0zoModel;
+
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 
-/**
- * Controlador de la interfaz gráfica. Se encarga de capturar los eventos del usuario,
- * actualizar el modelo del juego y reflejar los cambios en las etiquetas (Labels).
- */
-public class _0zoController {
+import java.net.URL;
+import java.util.ResourceBundle;
 
-    // Se vinculan directamente con el archivo FXML usando el atributo fx:id
+
+
+public class _0zoController implements Initializable {
+
+
+    // ==========================
+    // CONTADOR CENTRAL
+    // ==========================
+
     @FXML
-    private Label scoreValue; // Muestra el puntaje (ej. "0000")
+    private Label lblSumaMesa;
+
+
+    // Puntaje del jugador
+    @FXML
+    private Label scoreValue;
+
+
+
+    // ==========================
+    // JUGADOR PRINCIPAL
+    // ==========================
+
 
     @FXML
-    private Label statusValue; // Muestra el estado actual (ej. "Tu Turno")
+    private HBox manoJugador;
+
 
     @FXML
-    private Label boardPlaceholder; // Área central de texto del juego
+    private Label nombreJugadorPrincipal;
 
-    private _0zoModel gameModel;
 
-    /**
-     * Inicializa el controlador. JavaFX llama automáticamente a este método
-     * inmediatamente después de cargar el archivo FXML.
-     */
+
+
+    // ==========================
+    // JUGADORES RIVALES
+    // ==========================
+
+
     @FXML
-    public void initialize() {
-        // Inicializamos el modelo del juego para manejar los datos
-        gameModel = new _0zoModel();
+    private Label nombreJugadorIzquierda;
 
-        // Cargamos el estado inicial en la interfaz de usuario
+
+    @FXML
+    private Label cartasIzquierda;
+
+
+    @FXML
+    private Label puntosIzquierda;
+
+
+
+    @FXML
+    private Label nombreJugadorDerecha;
+
+
+    @FXML
+    private Label cartasDerecha;
+
+
+    @FXML
+    private Label puntosDerecha;
+
+
+
+
+    // ==========================
+    // CARTAS / MESA
+    // ==========================
+
+
+    @FXML
+    private StackPane mazoRobo;
+
+
+    @FXML
+    private StackPane pilaDescarte;
+
+
+    @FXML
+    private Label cartaActualMesa;
+
+
+
+    // Cartas del jugador
+
+    @FXML
+    private StackPane carta1;
+
+
+    @FXML
+    private StackPane carta2;
+
+
+    @FXML
+    private StackPane carta3;
+
+
+
+    // ==========================
+    // BOTONES
+    // ==========================
+
+
+    @FXML
+    private Button btnSalir;
+
+
+    @FXML
+    private Button btnReiniciar;
+
+
+
+
+    // ==========================
+    // VARIABLES DEL JUEGO
+    // ==========================
+
+
+    private int sumaMesa = 0;
+
+    private int puntosJugador = 0;
+
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+
+        configurarEventos();
+
+
         updateUI();
+
     }
 
-    /**
-     * Se ejecuta cuando el usuario hace clic en el botón de Apostar ("¡APRESTAR!").
-     */
-    @FXML
-    private void handleBetAction() {
-        // Modificamos los datos dentro del modelo (Lógica de negocio)
-        gameModel.placeBet(500);
-        gameModel.setCurrentScore(gameModel.getCurrentScore() + 150);
 
-        // Sincronizamos la UI con los nuevos cambios del modelo
+
+
+
+    // ==========================
+    // ACTUALIZAR INTERFAZ
+    // ==========================
+
+
+    private void updateUI(){
+
+
+        if(lblSumaMesa != null){
+
+            lblSumaMesa.setText(
+                    String.valueOf(sumaMesa)
+            );
+
+        }
+
+
+
+        if(scoreValue != null){
+
+            scoreValue.setText(
+                    String.valueOf(puntosJugador)
+            );
+
+        }
+
+
+    }
+
+
+
+
+
+    // ==========================
+    // EVENTOS
+    // ==========================
+
+
+    private void configurarEventos(){
+
+
+
+        if(btnSalir != null){
+
+            btnSalir.setOnAction(e -> {
+
+                System.exit(0);
+
+            });
+
+        }
+
+
+
+
+        if(btnReiniciar != null){
+
+
+            btnReiniciar.setOnAction(e -> {
+
+
+                sumaMesa = 0;
+
+                puntosJugador = 0;
+
+
+                updateUI();
+
+
+            });
+
+
+        }
+
+
+
+    }
+
+
+
+
+
+
+    // ==========================
+    // MÉTODOS DEL JUEGO
+    // ==========================
+
+
+    public void agregarCarta(int valor){
+
+
+        sumaMesa += valor;
+
+
+        if(sumaMesa > 50){
+
+            sumaMesa = 0;
+
+        }
+
+
         updateUI();
-        boardPlaceholder.setText("[ ¡LA APUESTA SE PONE INTERESANTE! ]");
+
+
     }
 
-    /**
-     * Se ejecuta cuando el usuario hace clic en el botón de Retirarse ("Fold").
-     */
-    @FXML
-    private void handleFoldAction() {
-        // Modificamos el estado en el modelo
-        gameModel.foldHand();
 
-        // Sincronizamos la UI
+
+    public void ganarPuntos(int cantidad){
+
+
+        puntosJugador += cantidad;
+
+
         updateUI();
-        boardPlaceholder.setText("[ HAS PERDIDO ESTA MANO ]");
+
     }
 
-    /**
-     * Método interno para sincronizar los textos de la interfaz gráfica
-     * con los datos actuales almacenados en el modelo.
-     */
-    private void updateUI() {
-        // Formatea el puntaje para mostrarlo con 4 dígitos (ej. 0150)
-        scoreValue.setText(String.format("%04d", gameModel.getCurrentScore()));
-        statusValue.setText(gameModel.getGameState());
-    }
+
+
+
 }

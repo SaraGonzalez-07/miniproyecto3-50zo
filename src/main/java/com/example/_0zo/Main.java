@@ -16,7 +16,7 @@ public class Main extends Application {
      * transferring the responsibility of loading the FXML resource, configuring layout
      * dimensions, and rendering the scene graph.
      *
-     * @param primaryStage the primary {@link View} container window for this application,
+     * @param primaryStage the primary {@link _0zoView} container window for this application,
      * constructed automatically by the JavaFX runtime engine
      * @throws Exception if an error occurs during the view initialization or FXML loading process
      */
