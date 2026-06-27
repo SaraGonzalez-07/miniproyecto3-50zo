@@ -2,30 +2,38 @@ package com.example._0zo.controller;
 
 
 import com.example._0zo.model._0zoModel;
-
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
-
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-
-
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
-
 public class _0zoController implements Initializable {
 
-
-
     private _0zoModel gameModel;
+
+    // TOP BUTTONS
+
+    @FXML
+    private ComboBox<Integer> machineSelector;
+
+
+    @FXML
+    private Button startButton;
+
+
+    @FXML
+    private Button restartButton;
+
+
+    @FXML
+    private Button exitButton;
+
+
 
 
 
@@ -37,8 +45,11 @@ public class _0zoController implements Initializable {
 
 
     @FXML
-    private Label scoreValue;
+    private Label currentCard;
 
+
+    @FXML
+    private Label scoreValue;
 
 
     @FXML
@@ -49,15 +60,10 @@ public class _0zoController implements Initializable {
     private StackPane discardPile;
 
 
-    @FXML
-    private Label currentCard;
 
 
 
-
-
-
-    // PLAYER
+    // HUMAN PLAYER
 
 
     @FXML
@@ -71,9 +77,7 @@ public class _0zoController implements Initializable {
 
 
 
-
-
-    // OPPONENTS
+    // MACHINES
 
 
     @FXML
@@ -81,17 +85,16 @@ public class _0zoController implements Initializable {
 
 
     @FXML
-    private Label leftPlayerCards;
-
-
-    @FXML
-    private Label leftPlayerScore;
-
-
-
-
-    @FXML
     private Label rightPlayerName;
+
+
+    @FXML
+    private Label topPlayerName;
+
+
+
+    @FXML
+    private Label leftPlayerCards;
 
 
     @FXML
@@ -99,25 +102,22 @@ public class _0zoController implements Initializable {
 
 
     @FXML
+    private Label topPlayerCards;
+
+
+
+
+    @FXML
+    private Label leftPlayerScore;
+
+
+    @FXML
     private Label rightPlayerScore;
 
 
-
-
-
-
-
-
-    // BUTTONS
-
-
     @FXML
-    private Button exitButton;
+    private Label topPlayerScore;
 
-
-
-    @FXML
-    private Button restartButton;
 
 
 
@@ -130,52 +130,27 @@ public class _0zoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb){
 
 
-
         gameModel = new _0zoModel();
+
+
+
+        machineSelector.getItems()
+                .addAll(1,2,3);
+
 
 
         setupButtons();
 
 
+        clearPlayers();
+
+
+
         updateUI();
 
 
-
     }
 
-
-
-
-
-
-
-
-    private void updateUI(){
-
-
-
-        lblTableSum.setText(
-                String.valueOf(
-                        gameModel.getTableSum()
-                )
-        );
-
-
-
-        scoreValue.setText(
-                String.valueOf(
-                        gameModel.getPlayerScore()
-                )
-        );
-
-
-
-        mainPlayerName.setText(
-                "Player 1"
-        );
-
-
-    }
 
 
 
@@ -185,6 +160,85 @@ public class _0zoController implements Initializable {
 
 
     private void setupButtons(){
+
+
+
+        startButton.setOnAction(e -> {
+
+
+
+            Integer machines =
+                    machineSelector.getValue();
+
+
+
+            if(machines == null){
+
+                return;
+
+            }
+
+
+
+
+            gameModel.startGame(
+                    machines
+            );
+
+
+
+
+            mainPlayerName
+                    .setText(
+                            "Human Player"
+                    );
+
+
+
+            showHumanHand();
+
+
+            showMachines();
+
+
+
+            updateUI();
+
+
+
+        });
+
+
+
+
+
+
+
+
+        restartButton.setOnAction(e -> {
+
+
+            gameModel.resetGame();
+
+
+
+            playerHand.getChildren()
+                    .clear();
+
+
+
+            clearPlayers();
+
+
+            updateUI();
+
+
+
+        });
+
+
+
+
 
 
 
@@ -198,18 +252,62 @@ public class _0zoController implements Initializable {
 
 
 
+    }
 
 
-        restartButton.setOnAction(e -> {
 
 
-            gameModel.resetGame();
 
 
-            updateUI();
 
 
-        });
+
+    private void showHumanHand(){
+
+
+
+        playerHand.getChildren()
+                .clear();
+
+
+
+
+        for(Integer cardValue :
+                gameModel.getHumanHand()){
+
+
+
+            StackPane card =
+                    new StackPane();
+
+
+
+
+            Label value =
+                    new Label(
+                            String.valueOf(cardValue)
+                    );
+
+
+
+
+            card.getChildren()
+                    .add(value);
+
+
+
+            card.getStyleClass()
+                    .add("card");
+
+
+
+
+            playerHand.getChildren()
+                    .add(card);
+
+
+
+        }
 
 
 
@@ -221,13 +319,168 @@ public class _0zoController implements Initializable {
 
 
 
-    public void playCard(int value){
 
 
-        gameModel.addCardToTable(value);
+    private void showMachines(){
 
 
-        updateUI();
+
+        int machines =
+                gameModel.getMachinePlayers();
+
+
+
+
+        if(machines >= 1){
+
+
+
+            leftPlayerName
+                    .setText("Machine 1");
+
+
+            leftPlayerCards
+                    .setText("Cards: Hidden");
+
+
+            leftPlayerScore
+                    .setText("Score: 0");
+
+
+
+        }
+
+
+
+
+
+        if(machines >= 2){
+
+
+
+            rightPlayerName
+                    .setText("Machine 2");
+
+
+            rightPlayerCards
+                    .setText("Cards: Hidden");
+
+
+            rightPlayerScore
+                    .setText("Score: 0");
+
+
+
+        }
+
+
+
+
+
+
+        if(machines >= 3){
+
+
+
+            topPlayerName
+                    .setText("Machine 3");
+
+
+            topPlayerCards
+                    .setText("Cards: Hidden");
+
+
+            topPlayerScore
+                    .setText("Score: 0");
+
+
+
+        }
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+    private void clearPlayers(){
+
+
+
+        leftPlayerName.setText("");
+
+
+        rightPlayerName.setText("");
+
+
+        topPlayerName.setText("");
+
+
+
+        leftPlayerCards.setText("");
+
+
+        rightPlayerCards.setText("");
+
+
+        topPlayerCards.setText("");
+
+
+
+        leftPlayerScore.setText("");
+
+
+        rightPlayerScore.setText("");
+
+
+        topPlayerScore.setText("");
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+    private void updateUI(){
+
+
+
+        lblTableSum
+                .setText(
+                        String.valueOf(
+                                gameModel.getTableSum()
+                        ));
+
+
+
+
+        currentCard
+                .setText(
+                        String.valueOf(
+                                gameModel.getCurrentCard()
+                        ));
+
+
+
+
+        scoreValue
+                .setText(
+                        String.valueOf(
+                                gameModel.getPlayerScore()
+                        ));
+
 
 
     }

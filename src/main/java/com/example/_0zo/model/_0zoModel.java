@@ -2,63 +2,218 @@ package com.example._0zo.model;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
 
 
 public class _0zoModel {
 
 
+    private ArrayList<Integer> deck;
+
+
+    private ArrayList<Integer> humanHand;
+
+
+    private ArrayList<ArrayList<Integer>> machineHands;
+
+
     private int tableSum;
+
+
+    private int currentCard;
+
 
     private int playerScore;
 
-    private boolean gameActive;
+
+    private int machinePlayers;
 
 
-    private List<Integer> playerHand;
-
-    private List<String> players;
-
+    private boolean gameStarted;
 
 
     public _0zoModel(){
 
 
-        tableSum = 0;
-
-        playerScore = 0;
-
-        gameActive = true;
+        deck = new ArrayList<>();
 
 
-        playerHand = new ArrayList<>();
+        humanHand = new ArrayList<>();
 
-        players = new ArrayList<>();
+
+        machineHands = new ArrayList<>();
+
+
+        createDeck();
+
 
     }
 
 
-
-    // TABLE
-
-
-    public void addCardToTable(int value){
+    private void createDeck(){
 
 
-        tableSum += value;
+        deck.clear();
 
 
-        if(tableSum > 50){
+        for(int number = 1; number <= 10; number++){
 
-            gameActive = false;
+
+            for(int copy = 0; copy < 4; copy++){
+
+
+                deck.add(number);
+
+
+            }
 
         }
 
 
+        Collections.shuffle(deck);
+
     }
 
 
+    public void startGame(int machines){
+
+
+        gameStarted = true;
+
+
+        machinePlayers = machines;
+
+
+        tableSum = 0;
+
+
+        playerScore = 0;
+
+
+        humanHand.clear();
+
+
+        machineHands.clear();
+
+
+        createDeck();
+
+
+        // Human initial hand
+        for(int i = 0; i < 5; i++){
+
+
+            humanHand.add(
+                    drawCard()
+            );
+
+        }
+
+        // Machines initial hand
+
+        for(int i = 0; i < machines; i++){
+
+            ArrayList<Integer> hand =
+                    new ArrayList<>();
+
+            for(int j = 0; j < 5; j++){
+
+                hand.add(
+                        drawCard()
+                );
+
+            }
+
+            machineHands.add(hand);
+
+        }
+
+        // First card on table
+
+        currentCard =
+                drawCard();
+
+        tableSum =
+                currentCard;
+
+    }
+
+    public int drawCard(){
+
+        if(deck.isEmpty()){
+
+            createDeck();
+
+        }
+
+        return deck.remove(0);
+
+    }
+
+    public void addCardToHumanHand(){
+
+        int card =
+                drawCard();
+
+        humanHand.add(card);
+
+        tableSum += card;
+
+    }
+
+    public void playCard(int index){
+
+        if(index >=0 &&
+                index < humanHand.size()){
+
+            int card =
+                    humanHand.remove(index);
+
+            currentCard =
+                    card;
+
+            tableSum += card;
+
+        }
+
+    }
+
+    public void resetGame(){
+
+        deck.clear();
+
+        humanHand.clear();
+
+        machineHands.clear();
+
+        tableSum = 0;
+
+        currentCard = 0;
+
+        playerScore = 0;
+
+        machinePlayers = 0;
+
+        gameStarted = false;
+
+        createDeck();
+
+    }
+
+
+    public ArrayList<Integer> getHumanHand(){
+
+        return humanHand;
+
+    }
+
+
+    public ArrayList<ArrayList<Integer>> getMachineHands(){
+
+        return machineHands;
+
+    }
 
     public int getTableSum(){
 
@@ -67,19 +222,11 @@ public class _0zoModel {
     }
 
 
+    public int getCurrentCard(){
 
-
-
-    // SCORE
-
-
-    public void addPlayerScore(int points){
-
-
-        playerScore += points;
+        return currentCard;
 
     }
-
 
 
     public int getPlayerScore(){
@@ -88,84 +235,25 @@ public class _0zoModel {
 
     }
 
+    public int getMachinePlayers(){
 
-
-
-
-
-    // HAND
-
-
-    public void addCardToHand(int card){
-
-
-        playerHand.add(card);
+        return machinePlayers;
 
     }
 
 
+    public boolean isGameStarted(){
 
-
-    public List<Integer> getPlayerHand(){
-
-        return playerHand;
+        return gameStarted;
 
     }
 
 
+    public int getDeckSize(){
 
-
-
-
-    // PLAYERS
-
-
-    public void addPlayer(String name){
-
-
-        players.add(name);
-
-    }
-
-
-
-    public List<String> getPlayers(){
-
-        return players;
-
-    }
-
-
-
-
-
-
-    // GAME
-
-
-    public boolean isGameActive(){
-
-        return gameActive;
-
-    }
-
-
-
-
-    public void resetGame(){
-
-
-        tableSum = 0;
-
-        playerScore = 0;
-
-        playerHand.clear();
-
-        gameActive = true;
+        return deck.size();
 
 
     }
-
-
 
 }
