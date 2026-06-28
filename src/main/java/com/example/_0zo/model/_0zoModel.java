@@ -8,6 +8,8 @@ import java.util.Collections;
 
 public class _0zoModel {
 
+
+
     private ArrayList<String> deck;
 
     private ArrayList<String> tableCards;
@@ -25,7 +27,6 @@ public class _0zoModel {
 
     public _0zoModel(){
 
-
         deck = new ArrayList<>();
 
         tableCards = new ArrayList<>();
@@ -36,34 +37,31 @@ public class _0zoModel {
 
     }
 
-
-    // CREAR MAZO POKER
-
     private void createDeck(){
 
         deck.clear();
 
-        String[] cards =
-                {
-                        "A",
-                        "2",
-                        "3",
-                        "4",
-                        "5",
-                        "6",
-                        "7",
-                        "8",
-                        "9",
-                        "10",
-                        "J",
-                        "Q",
-                        "K"
-                };
+        String[] cards = {
 
+                "A",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "J",
+                "Q",
+                "K"
+
+        };
 
         for(String card : cards){
 
-            for(int i = 0; i < 4; i++) {
+            for(int i = 0; i < 4; i++){
 
                 deck.add(card);
 
@@ -74,8 +72,6 @@ public class _0zoModel {
         Collections.shuffle(deck);
 
     }
-
-    // INICIAR PARTIDA
 
     public void startGame(int machines){
 
@@ -95,9 +91,7 @@ public class _0zoModel {
 
         // repartir humano
 
-
         for(int i = 0; i < 4; i++){
-
 
             humanHand.add(
                     drawCard()
@@ -107,13 +101,12 @@ public class _0zoModel {
 
         // repartir maquinas
 
-
-        for(int i = 0; i < machines; i++) {
+        for(int i = 0; i < machines; i++){
 
             ArrayList<String> hand =
                     new ArrayList<>();
 
-            for (int j = 0; j < 4; j++) {
+            for(int j = 0; j < 4; j++){
 
                 hand.add(
                         drawCard()
@@ -124,22 +117,21 @@ public class _0zoModel {
             machineHands.add(hand);
 
         }
+
         // carta inicial mesa
 
-        String firstCard =
+        String first =
                 drawCard();
 
-        tableCards.add(firstCard);
+        tableCards.add(first);
 
         tableSum =
                 calculateCardValue(
-                        firstCard,
+                        first,
                         tableSum
                 );
 
     }
-
-    // SACAR CARTA DEL MAZO
 
     public String drawCard(){
 
@@ -153,28 +145,22 @@ public class _0zoModel {
 
     }
 
-    // CALCULAR VALOR DE CARTA
+    public void addCardToHumanHand(String card){
 
+        humanHand.add(card);
+
+    }
+
+    // CALCULAR CARTAS NORMALES
 
     public int calculateCardValue(
             String card,
             int currentSum
     ){
 
-        switch(card){
-
-            case "A":
-
-                if(currentSum + 10 <= 50){
-
-                    return 10;
-
-                }
-
-                return 1;
+        switch(card) {
 
             case "9":
-
 
                 return 0;
 
@@ -186,6 +172,10 @@ public class _0zoModel {
 
                 return -10;
 
+            case "A":
+
+                return 1;
+
             default:
 
                 return Integer.parseInt(card);
@@ -194,12 +184,15 @@ public class _0zoModel {
 
     }
 
-    // JUGAR CARTA HUMANA
+    // JUGAR CARTA HUMANA CON AS ELEGIDO
 
-    public boolean playHumanCard(int position){
+    public boolean playHumanCard(
+            int position,
+            int aceValue
+    ) {
 
-        if(position < 0 ||
-                position >= humanHand.size()){
+        if (position < 0 ||
+                position >= humanHand.size()) {
 
             return false;
 
@@ -208,11 +201,21 @@ public class _0zoModel {
         String card =
                 humanHand.get(position);
 
-        int value =
-                calculateCardValue(
-                        card,
-                        tableSum
-                );
+        int value;
+
+        if (card.equals("A")) {
+
+            value = aceValue;
+
+        } else {
+
+            value =
+                    calculateCardValue(
+                            card,
+                            tableSum
+                    );
+
+        }
 
         int newSum =
                 tableSum + value;
@@ -229,17 +232,9 @@ public class _0zoModel {
 
         tableSum = newSum;
 
-        // mantener 4 cartas
-
-        humanHand.add(
-                drawCard()
-        );
-
         return true;
 
     }
-
-    // RECICLAR MAZO
 
     private void recycleDeck(){
 
@@ -249,7 +244,7 @@ public class _0zoModel {
 
         }
 
-        String lastCard =
+        String last =
                 tableCards.get(
                         tableCards.size()-1);
 
@@ -260,13 +255,11 @@ public class _0zoModel {
 
         tableCards.clear();
 
-        tableCards.add(lastCard);
+        tableCards.add(last);
 
         Collections.shuffle(deck);
 
     }
-
-    // GETTERS
 
     public ArrayList<String> getHumanHand(){
 

@@ -9,30 +9,28 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage){
 
-        try {
+        _0zoView view =
+                new _0zoView();
 
-            _0zoView view =
-                    new _0zoView();
+        stage.setScene(
+                view.getScene()
+        );
 
-            view.show(stage);
+        stage.setTitle(
+                "50ZO - Cincuentazo"
+        );
 
-        } catch(Exception e){
+        stage.setResizable(false);
 
-            System.out.println(
-                    "Error al inicializar el escenario de 50zo."
-            );
-
-            e.printStackTrace();
-
-        }
+        stage.show();
 
     }
 
     public static void main(String[] args){
 
-        launch(args);
+        launch();
 
     }
 

@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 public class _0zoController implements Initializable {
 
+
     private _0zoModel gameModel;
 
     @FXML
@@ -42,7 +43,13 @@ public class _0zoController implements Initializable {
     private StackPane drawPile;
 
     @FXML
-    private Label mainPlayerName;
+    private HBox leftMachineHand;
+
+    @FXML
+    private HBox rightMachineHand;
+
+    @FXML
+    private HBox topMachineHand;
 
     @FXML
     private Label leftPlayerName;
@@ -53,18 +60,10 @@ public class _0zoController implements Initializable {
     @FXML
     private Label topPlayerName;
 
-    @FXML
-    private HBox leftMachineHand;
-
-    @FXML
-    private HBox rightMachineHand;
-
-    @FXML
-    private HBox topMachineHand;
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
+
 
         gameModel =
                 new _0zoModel();
@@ -84,11 +83,8 @@ public class _0zoController implements Initializable {
             Integer machines =
                     machineSelector.getValue();
 
-            if(machines == null){
-
+            if(machines == null)
                 return;
-
-            }
 
             gameModel.startGame(machines);
 
@@ -107,20 +103,7 @@ public class _0zoController implements Initializable {
             gameModel =
                     new _0zoModel();
 
-            playerHand
-                    .getChildren()
-                    .clear();
-
-            leftMachineHand
-                    .getChildren()
-                    .clear();
-
-            rightMachineHand
-                    .getChildren()
-                    .clear();
-
-            topMachineHand
-                    .getChildren()
+            playerHand.getChildren()
                     .clear();
 
             updateUI();
@@ -134,8 +117,6 @@ public class _0zoController implements Initializable {
         });
 
     }
-
-    // CARTAS HUMANO BOCA ARRIBA
 
     private void showHumanCards(){
 
@@ -154,13 +135,70 @@ public class _0zoController implements Initializable {
             card.getStyleClass()
                     .add("card");
 
-            int position =
-                    index;
+            int position = index;
 
             card.setOnAction(e->{
 
+                int aceValue = 1;
+
+                // SI ES AS ELEGIR VALOR
+
+                if(cardValue.equals("A")){
+
+                    Alert choice =
+                            new Alert(
+                                    Alert.AlertType.CONFIRMATION
+                            );
+
+                    choice.setTitle(
+                            "Ace value"
+                    );
+
+                    choice.setHeaderText(
+                            "Choose the value of A"
+                    );
+
+                    ButtonType one =
+                            new ButtonType(
+                                    "A = 1"
+                            );
+
+
+                    ButtonType ten =
+                            new ButtonType(
+                                    "A = 10"
+                            );
+
+                    choice.getButtonTypes()
+                            .setAll(
+                                    one,
+                                    ten
+                            );
+
+                    ButtonType result =
+                            choice
+                                    .showAndWait()
+                                    .get();
+
+                    if(result == ten){
+
+                        aceValue = 10;
+
+                    }
+                    else{
+
+                        aceValue = 1;
+
+                    }
+
+                }
+
                 boolean played =
-                        gameModel.playHumanCard(position);
+                        gameModel
+                                .playHumanCard(
+                                        position,
+                                        aceValue
+                                );
 
                 if(played){
 
@@ -174,7 +212,7 @@ public class _0zoController implements Initializable {
                     Alert alert =
                             new Alert(
                                     Alert.AlertType.WARNING,
-                                    "You cannot play this card. The sum would exceed 50"
+                                    "You cannot play this card"
                             );
 
                     alert.show();
@@ -193,20 +231,21 @@ public class _0zoController implements Initializable {
 
     }
 
-    // CARTAS MAQUINA BOCA ABAJO
-
     private void showMachineCards(int machines){
 
-        leftMachineHand.getChildren()
+        leftMachineHand
+                .getChildren()
                 .clear();
 
-        rightMachineHand.getChildren()
+        rightMachineHand
+                .getChildren()
                 .clear();
 
-        topMachineHand.getChildren()
+        topMachineHand
+                .getChildren()
                 .clear();
 
-        if(machines >= 1){
+        if(machines >= 1) {
 
             leftPlayerName
                     .setText("Machine 1");
@@ -241,7 +280,7 @@ public class _0zoController implements Initializable {
 
     }
 
-    private void createHiddenCards(HBox box){
+    private void createHiddenCards(HBox hand){
 
         for(int i=0;i<4;i++){
 
@@ -251,14 +290,12 @@ public class _0zoController implements Initializable {
             card.getStyleClass()
                     .add("back-card");
 
-            box.getChildren()
+            hand.getChildren()
                     .add(card);
 
         }
 
     }
-
-    // MOSTRAR MAZO
 
     private void showDeck(){
 
@@ -281,13 +318,10 @@ public class _0zoController implements Initializable {
             String card =
                     gameModel.drawCard();
 
-            Alert alert =
-                    new Alert(
-                            Alert.AlertType.INFORMATION,
-                            "You took card: " + card
-                    );
+            gameModel
+                    .addCardToHumanHand(card);
 
-            alert.show();
+            showHumanCards();
 
         });
 
