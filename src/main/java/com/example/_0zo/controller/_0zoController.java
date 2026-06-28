@@ -10,9 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-
 public class _0zoController implements Initializable {
-
 
     private _0zoModel gameModel;
 
@@ -41,6 +39,9 @@ public class _0zoController implements Initializable {
     private HBox playerHand;
 
     @FXML
+    private StackPane drawPile;
+
+    @FXML
     private Label mainPlayerName;
 
     @FXML
@@ -53,13 +54,13 @@ public class _0zoController implements Initializable {
     private Label topPlayerName;
 
     @FXML
-    private Label leftPlayerCards;
+    private HBox leftMachineHand;
 
     @FXML
-    private Label rightPlayerCards;
+    private HBox rightMachineHand;
 
     @FXML
-    private Label topPlayerCards;
+    private HBox topMachineHand;
 
 
     @Override
@@ -72,9 +73,7 @@ public class _0zoController implements Initializable {
                 .getItems()
                 .addAll(1,2,3);
 
-
         setupButtons();
-
 
     }
 
@@ -91,15 +90,13 @@ public class _0zoController implements Initializable {
 
             }
 
-            gameModel.startGame(
-                    machines
-            );
+            gameModel.startGame(machines);
 
             showHumanCards();
 
-            showMachines(
-                    machines
-            );
+            showMachineCards(machines);
+
+            showDeck();
 
             updateUI();
 
@@ -110,10 +107,23 @@ public class _0zoController implements Initializable {
             gameModel =
                     new _0zoModel();
 
-            playerHand.getChildren()
+            playerHand
+                    .getChildren()
                     .clear();
 
-            lblTableSum.setText("0");
+            leftMachineHand
+                    .getChildren()
+                    .clear();
+
+            rightMachineHand
+                    .getChildren()
+                    .clear();
+
+            topMachineHand
+                    .getChildren()
+                    .clear();
+
+            updateUI();
 
         });
 
@@ -125,6 +135,8 @@ public class _0zoController implements Initializable {
 
     }
 
+    // CARTAS HUMANO BOCA ARRIBA
+
     private void showHumanCards(){
 
         playerHand
@@ -133,24 +145,22 @@ public class _0zoController implements Initializable {
 
         int index = 0;
 
-        for(String card:
+        for(String cardValue :
                 gameModel.getHumanHand()){
 
-            Button cardButton =
-                    new Button(card);
+            Button card =
+                    new Button(cardValue);
 
-            cardButton
-                    .getStyleClass()
+            card.getStyleClass()
                     .add("card");
 
-            int cardIndex =
+            int position =
                     index;
 
-            cardButton.setOnAction(e->{
+            card.setOnAction(e->{
 
                 boolean played =
-                        gameModel
-                                .playHumanCard(cardIndex);
+                        gameModel.playHumanCard(position);
 
                 if(played){
 
@@ -158,12 +168,13 @@ public class _0zoController implements Initializable {
 
                     updateUI();
 
-                }else{
+                }
+                else{
 
                     Alert alert =
                             new Alert(
                                     Alert.AlertType.WARNING,
-                                    "You cannot play this card. Sum would exceed 50"
+                                    "You cannot play this card. The sum would exceed 50"
                             );
 
                     alert.show();
@@ -174,7 +185,7 @@ public class _0zoController implements Initializable {
 
             playerHand
                     .getChildren()
-                    .add(cardButton);
+                    .add(card);
 
             index++;
 
@@ -182,37 +193,103 @@ public class _0zoController implements Initializable {
 
     }
 
-    private void showMachines(int amount) {
+    // CARTAS MAQUINA BOCA ABAJO
 
-        if (amount >= 1) {
+    private void showMachineCards(int machines){
+
+        leftMachineHand.getChildren()
+                .clear();
+
+        rightMachineHand.getChildren()
+                .clear();
+
+        topMachineHand.getChildren()
+                .clear();
+
+        if(machines >= 1){
 
             leftPlayerName
                     .setText("Machine 1");
 
-            leftPlayerCards
-                    .setText("Cards: Hidden");
+            createHiddenCards(
+                    leftMachineHand
+            );
 
         }
 
-        if (amount >= 2) {
+        if(machines >= 2){
 
             rightPlayerName
                     .setText("Machine 2");
 
-            rightPlayerCards
-                    .setText("Cards: Hidden");
+            createHiddenCards(
+                    rightMachineHand
+            );
 
         }
 
-        if (amount >= 3) {
+        if(machines >= 3){
 
             topPlayerName
                     .setText("Machine 3");
 
-            topPlayerCards
-                    .setText("Cards: Hidden");
+            createHiddenCards(
+                    topMachineHand
+            );
 
         }
+
+    }
+
+    private void createHiddenCards(HBox box){
+
+        for(int i=0;i<4;i++){
+
+            Button card =
+                    new Button("?");
+
+            card.getStyleClass()
+                    .add("back-card");
+
+            box.getChildren()
+                    .add(card);
+
+        }
+
+    }
+
+    // MOSTRAR MAZO
+
+    private void showDeck(){
+
+        drawPile
+                .getChildren()
+                .clear();
+
+        Button deck =
+                new Button("?");
+
+        deck.getStyleClass()
+                .add("back-card");
+
+        drawPile
+                .getChildren()
+                .add(deck);
+
+        deck.setOnAction(e->{
+
+            String card =
+                    gameModel.drawCard();
+
+            Alert alert =
+                    new Alert(
+                            Alert.AlertType.INFORMATION,
+                            "You took card: " + card
+                    );
+
+            alert.show();
+
+        });
 
     }
 
@@ -238,6 +315,9 @@ public class _0zoController implements Initializable {
                                     ));
 
         }
+
+        scoreValue
+                .setText("0");
 
     }
 
