@@ -1,0 +1,136 @@
+/* MAIN BACKGROUND */
+.root {
+    -fx-background-color: #1e2a4a;
+    -fx-font-family: "Arial";
+}
+
+/* TOP BAR */
+.top-bar {
+    -fx-background-color: #162040;
+    -fx-padding: 15;
+    -fx-border-color: #4fc3f7;
+    -fx-border-width: 0 0 2 0;
+}
+
+.title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+}
+
+/* BUTTONS */
+.gold-button {
+    -fx-background-color: #4fc3f7;
+    -fx-text-fill: #0d1b2a;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 8 20;
+}
+
+.gold-button:hover {
+    -fx-background-color: #81d4fa;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.danger-button {
+    -fx-background-color: #e53935;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 8 20;
+}
+
+.danger-button:hover {
+    -fx-background-color: #ff5252;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* GAME TABLE */
+.table {
+    -fx-background-color: #162040;
+    -fx-padding: 20;
+    -fx-background-radius: 20;
+    -fx-border-color: #4fc3f7;
+    -fx-border-radius: 20;
+    -fx-border-width: 2;
+}
+
+/* TABLE SUM TITLE */
+.counter-title {
+    -fx-text-fill: #4fc3f7;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+/* TABLE SUM NUMBER */
+.counter {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+}
+
+/* SCORE */
+.score {
+    -fx-text-fill: #b0bec5;
+    -fx-font-size: 16px;
+}
+
+/* PLAYER NAMES */
+.player-name {
+    -fx-text-fill: #4fc3f7;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+/* CARDS */
+.card {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #1e2a4a;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-min-width: 70;
+    -fx-min-height: 100;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #4fc3f7;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, black, 6, 0.3, 0, 2);
+}
+
+.card:hover {
+    -fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
+    -fx-border-color: #81d4fa;
+    -fx-effect: dropshadow(gaussian, #4fc3f7, 12, 0.5, 0, 0);
+}
+
+/* HIDDEN CARDS */
+.back-card {
+    -fx-background-color: linear-gradient(#2a5298, #1e3a6e);
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 24px;
+    -fx-min-width: 70;
+    -fx-min-height: 100;
+    -fx-background-radius: 12;
+    -fx-border-color: #4fc3f7;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, black, 6, 0.3, 0, 2);
+}
+
+.back-card:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+/* DECK */
+#drawPile {
+    -fx-background-color: #162040;
+    -fx-background-radius: 12;
+}
